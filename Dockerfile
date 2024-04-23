@@ -9,6 +9,15 @@ RUN \
 
 USER webgoat
 
+RUN curl -LJO https://raw.githubusercontent.com/OWASP/wrongsecrets/master/src/test/resources/RSAprivatekey.pem  && \
+    curl -LJO https://raw.githubusercontent.com/OWASP/wrongsecrets/master/src/test/resources/secondkey.txt && \
+    curl -LJO https://raw.githubusercontent.com/OWASP/wrongsecrets/master/src/test/resources/thirdkey.txt && \
+    curl -LJO https://raw.githubusercontent.com/OWASP/wrongsecrets/master/src/test/resources/yourkey.txt
+
+# Mend traceability labels
+LABEL io.mend.image.dockerfile.path=Dockerfile
+LABEL org.opencontainers.image.source=https://github.com/samqdemocorp-mend/qbr-q2-demo
+
 COPY --chown=webgoat target/webgoat-*.jar /home/webgoat/webgoat.jar
 
 EXPOSE 8080
